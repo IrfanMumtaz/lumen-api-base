@@ -25,45 +25,5 @@ $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function () use ($router
             $router->put('/role/{id}', 'RoleController@update');
             $router->delete('/role/{id}', 'RoleController@destroy');
         });
-
-        $router->group(['prefix' => 'merchant'], function () use ($router) {
-            $router->get('/', 'MerchantController@index');
-            $router->get('/{id}', 'MerchantController@show');
-            $router->post('/', 'MerchantController@store');
-            $router->put('/{id}', 'MerchantController@update');
-            $router->delete('/{id}', 'MerchantController@destroy');
-        });
-
-        $router->group(['prefix' => 'passenger'], function () use ($router) {
-            $router->get('/', 'PassengerController@index');
-            $router->get('/{id}', 'PassengerController@show');
-            $router->post('/', 'PassengerController@store');
-            $router->put('/{id}', 'PassengerController@update');
-            $router->delete('/{id}', 'PassengerController@destroy');
-        });
-
-        $router->group(['prefix' => 'booth'], function () use ($router) {
-            $router->get('/', 'BoothController@index');
-            $router->get('/{id}', 'BoothController@show');
-            $router->post('/', 'BoothController@store');
-            $router->put('/{id}', 'BoothController@update');
-            $router->delete('/{id}', 'BoothController@destroy');
-        });
-
-        $router->group(['prefix' => 'vehicle'], function () use ($router) {
-            $router->get('/', 'VehicleController@index');
-            $router->get('/{id}', 'VehicleController@show');
-            $router->post('/', 'VehicleController@store');
-            $router->put('/{id}', 'VehicleController@update');
-            $router->delete('/{id}', 'VehicleController@destroy');
-        });
-
-        $router->group(['prefix' => 'ticket'], function () use ($router) {
-            $router->get('/', 'TicketController@index');
-            $router->get('/{id}', 'TicketController@show');
-            $router->post('/', 'TicketController@store');
-            $router->put('/{id}', 'TicketController@update');
-            $router->delete('/{id}', 'TicketController@destroy');
-        });
     });
 });
