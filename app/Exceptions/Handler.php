@@ -2,17 +2,16 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use App\Exceptions\V1\HttpRouteException;
+use App\Exceptions\V1\RequestValidationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Http\Resources\ErrorResponse;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Spatie\Permission\Exceptions\UnauthorizedException as SpatieUnauthorizedException;
+use Exception;
 
 class Handler extends ExceptionHandler
 {
@@ -50,30 +49,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof BaseException) {
-            $res = new ErrorResponse($e->getError());
-            return response()->json($res, 200);
-        } elseif ($e instanceof SpatieUnauthorizedException) {
-            $res = new ErrorResponse(Error::$UNAUTHRIZED);
-            return response()->json($res, 401);
-        } elseif ($e instanceof NotFoundHttpException) {
-            $res = new ErrorResponse(Error::$NOT_FOUND);
-            return response()->json($res, 404);
-        } elseif ($e instanceof MethodNotAllowedHttpException) {
-            $res = new ErrorResponse(Error::$NOT_FOUND);
-            return response()->json($res, 404);
-        } elseif ($e instanceof ValidationException) {
-            $error = array_first($e->response->original);
-            $res = new ErrorResponse(Error::validationErrors($error[0]));
-            return response()->json($res, 422);
-        } elseif ($e instanceof HttpException) {
 
-            $res = new ErrorResponse(Error::$INVALID_METHOD_REQUEST);
-            return response()->json($e, 405);
+        if ($e instanceof BaseException) {
+            $res = new ErrorResponse($e);
+            return response()->json($res, $e->getCode());
+        } elseif ($e instanceof HttpException) {
+            throw HttpRouteException::routeNotFound();
+        } elseif ($e instanceof MethodNotAllowedHttpException) {
+            throw HttpRouteException::methodNotAllowed();
+        } elseif ($e instanceof ValidationException) {
+            $key = array_key_first($e->response->original);
+            throw RequestValidationException::errorMessage($e->response->original[$key][0]);
         } else {
-            $res = new ErrorResponse(Error::$INTERNAL_FAILURE);
+            $e = new \Exception(
+                'Something went wrong and we have been notified about the problem',
+                '500'
+            );
+            $res = new ErrorResponse($e);
             return response()->json($res, 500);
         }
+
         return parent::render($request, $e);
     }
 }

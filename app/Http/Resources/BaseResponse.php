@@ -4,7 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 use App\Exceptions\BaseException;
-use App\Exceptions\Error;
+use App\Exceptions\V1\FailureException;
+use Exception;
 
 class BaseResponse extends Resource
 {
@@ -13,7 +14,7 @@ class BaseResponse extends Resource
     private $data = null;
     private $success = true;
 
-    public function __construct($data, ?Error $error = null, $success = true, $message = null)
+    public function __construct($data, ?Exception $error = null, $success = true, $message = null)
     {
         $this->data = $data;
         $this->success = $success;
@@ -37,7 +38,7 @@ class BaseResponse extends Resource
      */
     public function toArray($request)
     {
-        throw new BaseException(Error::$INTERNAL_FAILURE);
+        throw FailureException::serverError();
     }
 
     /**

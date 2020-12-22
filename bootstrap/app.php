@@ -17,7 +17,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 |
 */
 
-use App\Exceptions\Error;
 
 
 $app = new Laravel\Lumen\Application(
@@ -116,7 +115,5 @@ $app->router->group([
     require __DIR__ . '/../routes/web.php';
     require __DIR__ . '/../routes/routev1.php';
 });
-
-Error::init();
 
 return $app;

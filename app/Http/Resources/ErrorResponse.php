@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Exceptions\Error;
+use Exception;
 
 class ErrorResponse extends BaseResponse
 {
 
-    public function __construct(Error $error)
+    public function __construct(Exception $error)
     {
         parent::__construct(null, $error, false, "Operation failed");
     }
