@@ -17,10 +17,11 @@ class CreateUserContactsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('contact_id');
-            $table->boolean('primary');
+            $table->boolean('primary')->default(true);
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('contact_id')->on('contacts')->references('id')->onDelete('cascade');

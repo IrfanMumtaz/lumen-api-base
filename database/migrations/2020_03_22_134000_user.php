@@ -15,16 +15,11 @@ class User extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 50);
-            $table->string('father_name', 50);
+            $table->string('first_name', 100);
+            $table->string('first_name', 100);
             $table->string('password');
-            $table->string('username')->unique();
-            $table->string('cnic', 16)->nullable();
-            $table->char('gender', 1)->default("M");
-            $table->date('dob')->nullable();
-            $table->string('religion', 20)->nullable();
-            $table->string('nationality', 20)->nullable();
-            $table->string('image')->nullable();
+            $table->string('username', 100)->unique();
+            $table->enum('gender', ['male', 'female'])->default("male");
             $table->integer('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->unsignedInteger('created_by')->nullable();
