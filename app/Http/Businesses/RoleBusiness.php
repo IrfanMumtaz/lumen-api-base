@@ -1,46 +1,46 @@
 <?php
 
 
-namespace App\Http\Logics;
+namespace App\Http\Businesses;
 
 use App\Http\Services\RoleService;
 
 
-class RoleLogic
+class RoleBusiness
 {
-    public function get()
+    public static function get()
     {
         return (new RoleService())->getAll();
     }
 
-    public function getPermissions()
+    public static function getPermissions()
     {
         return (new RoleService())->getAllPermissions();
     }
 
-    public function first($id)
+    public static function first($id)
     {
         return (new RoleService())->getfirst($id);
     }
 
-    public function create($request)
+    public static function create($request)
     {
         $role = (new RoleService())->store($request, []);
         return $role;
     }
 
-    public function edit($request, $id)
+    public static function edit($request, $id)
     {
-        $role = $this->first($id);
+        $role = self::first($id);
         $relationData['role'] = $role;
 
         $role = (new RoleService())->store($request, $relationData);
         return $role;
     }
 
-    public function destroy($id)
+    public static function destroy($id)
     {
-        $role = $this->first($id);
+        $role = self::first($id);
         $role->delete();
     }
 }

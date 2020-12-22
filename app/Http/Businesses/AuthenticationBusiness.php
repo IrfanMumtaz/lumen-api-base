@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Logics;
+namespace App\Http\Businesses;
 
 
 use App\Exceptions\BaseException;
@@ -11,21 +11,21 @@ use App\Http\Services\UserService;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
-class AuthenticationLogic
+class AuthenticationBusiness
 {
-    public function verifyLoginInfo($request)
+    public static function verifyLoginInfo($request)
     {
 
         $user = (new UserService())->getByUserName($request->username);
         $userRoles = $user->getRoleNames()->toArray();
-        if (count(array_intersect(User::LOGABLE_ROLES, $userRoles)) < 1) throw new BaseException(Error::$NOT_LOGABLE);
+        if (count(array_intersect(User::LOGINABLE_ROLES, $userRoles)) < 1) throw new BaseException(Error::$NOT_LOGABLE);
         if (!Hash::check($request->password, $user->password)) throw new BaseException(Error::$INVALID_USER_CREDENTIALS);
 
-        $auth['token'] = $this->createToken($user);
-        return $this->generateVerificationResponse($auth, $user);
+        $auth['token'] = self::createToken($user);
+        return self::generateVerificationResponse($auth, $user);
     }
 
-    private function createToken($user)
+    private static function createToken($user)
     {
         $tokenResult = $user->createToken('Password Grant Client');
         $token = $tokenResult->token;
@@ -35,18 +35,18 @@ class AuthenticationLogic
         return $tokenResult;
     }
 
-    private function generateVerificationResponse($auth, $user)
+    private static function generateVerificationResponse($auth, $user)
     {
         return [
             'access_token' => $auth['token']->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => ($auth['token']->token->expires_at)->format('Y-m-d H:i:s'),
             'user' => $user,
-            'permissions' => $this->userPermissionArray($user)
+            'permissions' => self::userPermissionArray($user)
         ];
     }
 
-    private function userPermissionArray($user)
+    private static function userPermissionArray($user)
     {
         $permissions = $user->getAllPermissions()->toArray();
         $permissions = array_column($permissions, 'name');

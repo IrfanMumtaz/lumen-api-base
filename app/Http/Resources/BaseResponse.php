@@ -45,8 +45,9 @@ class BaseResponse extends Resource
      *
      * @return array
      */
-    public function wrapped($response = [])
+    public function wrapped($response = null)
     {
+        $response = $response ? $response : new \stdClass;
         return [
             "data" => $response,
             "error" => $this->error,

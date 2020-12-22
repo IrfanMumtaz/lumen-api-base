@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     const STATUS = ['pending' => 0, 'active' => 1, 'blocked' => 2];
-    const LOGABLE_ROLES = ['admin'];
+    const LOGINABLE_ROLES = ['admin'];
 
     protected $fillable = [
         'name', 'email',

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Logics\RoleLogic;
+use App\Http\Businesses\RoleBusiness;
 use App\Http\Resources\SuccessResponse;
 use App\Http\Resources\V1\PermissionsResponse;
 use App\Http\Resources\V1\RolesResponse;
@@ -31,7 +31,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = (new RoleLogic())->get();
+        $roles = RoleBusiness::get();
         return new RolesResponse($roles);
     }
 
@@ -42,7 +42,7 @@ class RoleController extends Controller
      */
     public function permission()
     {
-        $roles = (new RoleLogic())->getPermissions();
+        $roles = RoleBusiness::getPermissions();
         return new PermissionsResponse($roles);
     }
 
@@ -54,7 +54,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = (new RoleLogic())->create($request);
+        $role = RoleBusiness::create($request);
         return new RoleResponse($role);
     }
 
@@ -66,7 +66,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = (new RoleLogic())->first($id);
+        $role = RoleBusiness::first($id);
         return new RoleResponse($role);
     }
 
@@ -79,7 +79,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = (new RoleLogic())->edit($request, $id);
+        $role = RoleBusiness::edit($request, $id);
         return new RoleResponse($role);
     }
 
@@ -91,7 +91,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = (new RoleLogic())->destroy($id);
+        $role = RoleBusiness::destroy($id);
         return new SuccessResponse([]);
     }
 }

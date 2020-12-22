@@ -8,7 +8,7 @@
         "php": ">=7.1.3",
         "dusterio/lumen-passport": "^0.2.18",
         "flipbox/lumen-generator": "^6.0",
-        "laravel/lumen-framework": "5.8.*",
+        "laravel/lumen-framework": "6.0.*",
         "nordsoftware/lumen-cors": "^3.2",
         "pearl/lumen-request-validate": "^1.4",
         "spatie/laravel-permission": "^3.11",
