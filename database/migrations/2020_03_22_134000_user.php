@@ -16,7 +16,7 @@ class User extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('first_name', 100);
-            $table->string('first_name', 100);
+            $table->string('last_name', 100);
             $table->string('password');
             $table->string('username', 100)->unique();
             $table->enum('gender', ['male', 'female'])->default("male");
