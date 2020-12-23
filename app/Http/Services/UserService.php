@@ -11,41 +11,32 @@ use Illuminate\Support\Facades\DB;
 
 class UserService
 {
-    public function store($request, $id = null){
-        $user = User::firstOrNew(['id' => $id]);
-        $user->name = $request->name;
-        $user->father_name = $request->father_name;
-        $user->username = $request->contact['email'];
-        $user->password = Hash::make($request->contact['email']);
-        $user->cnic = $request->cnic;
-        $user->gender = strtoupper($request->gender);
-        $user->dob = $request->dob;
-        $user->religion = $request->religion;
-        $user->nationality = $request->nationality;
+    public static function store($request)
+    {
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->username = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->gender = $request->gender;
         $user->status = User::STATUS['pending'];
         $user->save();
 
-        //assign user role
-        if(!empty($request->get('role_id')) && count($request->get('role_id')) > 0){
-            foreach ($request->get('role_id') as $role){
-                DB::table('model_has_roles')->insert([
-                    'model_type' => 'App\User',
-                    'role_id' => $role,
-                    'model_id' => $user->id
-                ]);
+        //assign user roles
+        if (!empty($request->get('roles')) && count($request->get('roles')) > 0) {
+            foreach ($request->get('roles') as $role) {
+                $user->assignRole($role);
             }
         }
 
         return $user;
     }
 
-    public function getByUserName($username){
+    public static function getByUserName($username)
+    {
         $username = clean($username);
 
         $user = User::where('username', $username)->first();
-        if (!$user) throw new BaseException(Error::$UNAUTHRIZED);
-
         return $user;
     }
-
 }

@@ -26,20 +26,19 @@ class Installation extends Seeder
         Role::create(['name' => 'customers']);
 
         $user = User::create([
-            'name' => 'Admin',
-            'father_name' => 'Admin',
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
             'username' => 'admin@example.com',
             'password' => Hash::make('123456'),
             'email_verified_at' => date('Y-m-d H:i:s'),
             'gender' => 'male',
-            'dob' => date('Y-m-d'),
             'status' => 1
 
         ]);
 
         $contact = Contact::create([
-            'phone' => "3330000000",
-            'email' => "admin@travelinsurance.com"
+            'phone' => "0000000000",
+            'email' => "admin@example.com"
         ]);
 
         UserContact::create([
