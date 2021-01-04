@@ -3,6 +3,7 @@
 namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\Resource;
+use App\User;
 
 class UserResource extends Resource
 {
@@ -16,15 +17,11 @@ class UserResource extends Resource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'father_name' => $this->father_name,
-            'cnic' => $this->cnic,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->username,
             'gender' => $this->gender,
-            'date_of_birth' => $this->dob,
-            'religion' => $this->religion,
-            'nationality' => $this->nationality,
-            'image' => $this->image,
-            'status' => $this->status
+            'status' => array_search($this->status, User::STATUS)
         ];
     }
 }
