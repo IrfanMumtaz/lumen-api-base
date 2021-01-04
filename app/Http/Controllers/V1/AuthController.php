@@ -9,6 +9,7 @@ use App\Http\Resources\V1\AuthenticationResponse;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Http\Requests\V1\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
         return new AuthenticationResponse($auth);
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         DB::beginTransaction();
         $auth = AuthenticationBusiness::register($request);

@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\V1;
 
-use App\Http\Requests\APIValidation;
 use Illuminate\Validation\Rule;
 use Pearl\RequestValidate\RequestAbstract;
 
-class VehicleRequest extends RequestAbstract
+class RegisterRequest extends RequestAbstract
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +24,13 @@ class VehicleRequest extends RequestAbstract
      */
     public function rules(): array
     {
-        $id = $this->route('id') ?: 0;
         return [
-            'name' => 'required|string|max:50',
-            'type' => ['required', Rule::in('Bus', 'Car', 'Motor Bike')],
-            'make' => 'nullable|string|max:50',
-            'model' => 'required|string|max:50',
-            'year' => 'nullable|date_format:Y',
-            'registration' => "required|string|max:8|unique:vehicles,registration," . $id . ",id",
-            'color' => 'nullable|string|max:50',
-            'chasis' => 'nullable|string|max:50',
-            'engine' => 'nullable|string|max:50',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'gender' =>  ['required', Rule::in(['male', 'female'])],
+            'email' => 'required|email|max:50|unique:users,username',
+            'password' => 'required|string|max:50|confirmed',
+            'password_confirmation' => 'required|max:50'
         ];
     }
 
