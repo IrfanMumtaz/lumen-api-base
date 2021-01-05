@@ -17,7 +17,6 @@ class RoleResource extends Resource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'permissions' => PermissionsResource::collection($this->permissions)
         ];
     }
 }

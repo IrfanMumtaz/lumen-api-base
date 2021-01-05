@@ -13,11 +13,6 @@ class RoleBusiness
         return RoleService::getAll();
     }
 
-    public static function getPermissions()
-    {
-        return RoleService::getAllPermissions();
-    }
-
     public static function first($id)
     {
         return RoleService::getfirst($id);

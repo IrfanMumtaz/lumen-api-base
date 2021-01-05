@@ -20,11 +20,10 @@ $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function () use ($router
     $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->group(['prefix' => 'acl'], function () use ($router) {
             $router->get('/roles', 'RoleController@index');
-            $router->get('/permission', 'RoleController@permission');
-            $router->get('/role/{id}', 'RoleController@show');
-            $router->post('/role', 'RoleController@store');
-            $router->put('/role/{id}', 'RoleController@update');
-            $router->delete('/role/{id}', 'RoleController@destroy');
+            $router->get('/roles/{id}', 'RoleController@show');
+            $router->post('/roles', 'RoleController@store');
+            $router->put('/roles/{id}', 'RoleController@update');
+            $router->delete('/roles/{id}', 'RoleController@destroy');
         });
     });
 });

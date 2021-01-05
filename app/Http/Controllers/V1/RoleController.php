@@ -36,17 +36,6 @@ class RoleController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function permission()
-    {
-        $roles = RoleBusiness::getPermissions();
-        return new PermissionsResponse($roles);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -14,12 +14,6 @@ class RoleService
             ->get();
     }
 
-    public static function getAllPermissions()
-    {
-        return Permission::orderBy('name', 'asc')
-            ->get();
-    }
-
     public static function getFirst($id)
     {
         $role = Role::where('id', $id)
