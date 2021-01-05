@@ -3,10 +3,13 @@
 
 namespace App\Http\Businesses\V1;
 
-
+use App\Exceptions\V1\UnAuthorizedException;
 use App\Helpers\TimestampHelper;
 use App\Http\Services\V1\CustomerService;
 use App\Http\Services\V1\UserService;
+
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthBusiness
 {
@@ -20,13 +23,13 @@ class AuthBusiness
         return self::generateVerificationResponse($auth, $user);
     }
 
-    public static function verifyLoginInfo($request)
+    public static function login($request)
     {
 
-        $user = UserService::getByUserName($request->username);
+        $user = UserService::getByUserName($request->email);
         $userRoles = $user->getRoleNames()->toArray();
-        // if (count(array_intersect(User::LOGINABLE_ROLES, $userRoles)) < 1) throw new BaseException(Error::$NOT_LOGABLE);
-        // if (!Hash::check($request->password, $user->password)) throw new BaseException(Error::$INVALID_USER_CREDENTIALS);
+        if (count(array_intersect(User::LOGINABLE_ROLES, $userRoles)) < 1) throw UnAuthorizedException::invalidLoginRole();
+        if (!Hash::check($request->password, $user->password)) throw UnAuthorizedException::invalidCredentials();
 
         $auth['token'] = self::createToken($user);
         return self::generateVerificationResponse($auth, $user);

@@ -3,6 +3,7 @@
 
 namespace App\Http\Services\V1;
 
+use App\Exceptions\V1\ModelException;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,8 +33,9 @@ class UserService
     public static function getByUserName($username)
     {
         $username = clean($username);
-
         $user = User::where('username', $username)->first();
+
+        if (!$user) throw ModelException::dataNotFound();
         return $user;
     }
 }

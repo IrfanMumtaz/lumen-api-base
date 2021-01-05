@@ -14,7 +14,7 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        $auth = AuthBusiness::verifyLoginInfo($request);
+        $auth = AuthBusiness::login($request);
         return new AuthenticationResponse($auth);
     }
 

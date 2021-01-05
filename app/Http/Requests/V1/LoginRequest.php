@@ -24,7 +24,7 @@ class LoginRequest extends RequestAbstract
     public function rules(): array
     {
         return [
-            'username' => 'required|email|max:50',
+            'email' => 'required|email|max:50',
             'password' => 'required|max:50'
         ];
     }
