@@ -7,10 +7,8 @@ namespace App\Http\Businesses\V1;
 use App\Helpers\TimestampHelper;
 use App\Http\Services\V1\CustomerService;
 use App\Http\Services\V1\UserService;
-use App\User;
-use Illuminate\Support\Facades\Hash;
 
-class AuthenticationBusiness
+class AuthBusiness
 {
     public static function register($request)
     {
