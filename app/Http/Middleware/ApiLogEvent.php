@@ -31,12 +31,12 @@ class ApiLogEvent
 
         $log = new ApiLog(); //create an object for your database to store data
         $log->ip = $request->getClientIp(); // get client ip address from request object
-        $log->method = strtolower($request->getMethod()); // get client request method from request object
+        $log->method = strtoupper($request->getMethod()); // get client request method from request object
         $log->url = $request->fullUrl(); // get client full url from reuqest object
         $log->header = (is_array($request->header())) ? serialize($request->header()) : $request->header(); // if header is array encode in into string
         $log->request = $this->requestValidator($request->all()); //store complete request in string
         $log->response = $response->getContent(); // store response in string
-        $log->bound = 'in'; //if API is internal then bound will be in else out
+        $log->bound = strtoupper('in'); //if API is internal then bound will be in else out
         $log->duration = microtime(true) - $request->start_time; //calculate and store total duration of processing code,
         $log->save(); // save log in databse
 

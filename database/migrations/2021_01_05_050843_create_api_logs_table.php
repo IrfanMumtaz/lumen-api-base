@@ -16,12 +16,12 @@ class CreateApiLogsTable extends Migration
         Schema::create('api_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ip');
-            $table->enum('method', ['get', 'post', 'put', 'patch', 'delete']);
+            $table->enum('method', ['GET', 'POST', 'PUT', 'PATCH', 'FIRST']);
             $table->string('url');
             $table->text('header');
             $table->text('request');
             $table->text('response');
-            $table->enum('bound', ['in', 'out']);
+            $table->enum('bound', ['IN', 'OUT']);
             $table->float('duration');
             $table->timestamps();
         });
