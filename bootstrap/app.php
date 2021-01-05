@@ -67,6 +67,7 @@ $app->alias('cache', \Illuminate\Cache\CacheManager::class);
 
 $app->middleware([
     'Nord\Lumen\Cors\CorsMiddleware',
+    'App\Http\Middleware\ApiLogEvent'
 ]);
 
 $app->routeMiddleware([
