@@ -1,13 +1,10 @@
 <?php
 
 
-namespace App\Http\Services;
+namespace App\Http\Services\V1;
 
-use App\Exceptions\BaseException;
-use App\Exceptions\Error;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 class UserService
 {

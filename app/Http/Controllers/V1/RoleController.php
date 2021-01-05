@@ -4,7 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Businesses\RoleBusiness;
+use App\Http\Businesses\V1\RoleBusiness;
 use App\Http\Resources\SuccessResponse;
 use App\Http\Resources\V1\PermissionsResponse;
 use App\Http\Resources\V1\RolesResponse;

@@ -13,7 +13,7 @@
 
 $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function () use ($router) {
     $router->group(['prefix' => 'auth', 'middleware' => 'client-credendials'], function () use ($router) {
-        $router->post('/get-access-token', 'AuthController@getAccessToken');
+        $router->post('/login', 'AuthController@login');
         $router->post('/register', 'AuthController@register');
     });
 

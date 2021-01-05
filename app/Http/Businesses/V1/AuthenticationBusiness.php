@@ -1,14 +1,12 @@
 <?php
 
 
-namespace App\Http\Businesses;
+namespace App\Http\Businesses\V1;
 
 
-use App\Exceptions\BaseException;
-use App\Exceptions\Error;
 use App\Helpers\TimestampHelper;
-use App\Http\Services\CustomerService;
-use App\Http\Services\UserService;
+use App\Http\Services\V1\CustomerService;
+use App\Http\Services\V1\UserService;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 

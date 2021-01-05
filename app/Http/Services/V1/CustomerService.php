@@ -1,9 +1,7 @@
 <?php
 
 
-namespace App\Http\Services;
-
-use App\Models\Customer;
+namespace App\Http\Services\V1;
 
 class CustomerService
 {

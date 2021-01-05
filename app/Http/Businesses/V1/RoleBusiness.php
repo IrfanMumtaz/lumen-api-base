@@ -1,31 +1,31 @@
 <?php
 
 
-namespace App\Http\Businesses;
+namespace App\Http\Businesses\V1;
 
-use App\Http\Services\RoleService;
+use App\Http\Services\V1\RoleService;
 
 
 class RoleBusiness
 {
     public static function get()
     {
-        return (new RoleService())->getAll();
+        return RoleService::getAll();
     }
 
     public static function getPermissions()
     {
-        return (new RoleService())->getAllPermissions();
+        return RoleService::getAllPermissions();
     }
 
     public static function first($id)
     {
-        return (new RoleService())->getfirst($id);
+        return RoleService::getfirst($id);
     }
 
     public static function create($request)
     {
-        $role = (new RoleService())->store($request, []);
+        $role = RoleService::store($request, []);
         return $role;
     }
 
@@ -34,7 +34,7 @@ class RoleBusiness
         $role = self::first($id);
         $relationData['role'] = $role;
 
-        $role = (new RoleService())->store($request, $relationData);
+        $role = RoleService::store($request, $relationData);
         return $role;
     }
 
