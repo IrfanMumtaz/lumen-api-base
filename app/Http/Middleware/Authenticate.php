@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\BaseException;
-use App\Exceptions\Error;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use App\Exceptions\V1\UnAuthorizedException;
 
 class Authenticate
 {
@@ -37,7 +36,7 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($this->auth->guard($guard)->guest()) throw new BaseException(Error::$UNAUTHRIZED);
+        if ($this->auth->guard($guard)->guest()) throw UnAuthorizedException::userUnAuthorized();
 
         return $next($request);
     }

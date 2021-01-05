@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\Resource;
 use App\Exceptions\BaseException;
 use App\Exceptions\V1\FailureException;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class BaseResponse extends Resource
 {
@@ -49,6 +50,10 @@ class BaseResponse extends Resource
     public function wrapped($response = null)
     {
         $response = $response ? $response : new \stdClass;
+
+        if (Auth::check()) {
+            $response->permissions = Auth::user()->getAllPermissions()->pluck('name');
+        }
         return [
             "data" => $response,
             "error" => $this->error,

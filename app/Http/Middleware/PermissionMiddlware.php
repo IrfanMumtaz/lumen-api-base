@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\BaseException;
-use App\Exceptions\Error;
+use App\Exceptions\V1\UnAuthorizedException;
 use Closure;
 
 class PermissionMiddlware
@@ -17,9 +16,7 @@ class PermissionMiddlware
      */
     public function handle($request, Closure $next, $permission)
     {
-        if (app('auth')->guest()) {
-            throw new BaseException(Error::$UNAUTHRIZED);
-        }
+        if (app('auth')->guest()) throw UnAuthorizedException::userUnAuthorized();
 
         $permissions = is_array($permission)
             ? $permission
@@ -33,6 +30,6 @@ class PermissionMiddlware
             }
         }
 
-        throw new BaseException(Error::$UNAUTHRIZED);
+        throw UnAuthorizedException::userUnAuthorized();
     }
 }
